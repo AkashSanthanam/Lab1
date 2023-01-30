@@ -3,7 +3,6 @@ This file corresponds to the first graded lab of 2XC3.
 Feel free to modify and/or add functions to this file.
 """
 import random
-import random
 import timeit
 import matplotlib.pyplot as plot
 
@@ -128,53 +127,92 @@ for _ in range(n):
 # step is space between
 # n is highest length list
 # m is number of lists
+size_plot = []
+
 def experiement1(n, m, step):
-    times = []
+    times1 = []
+    times2 = []
+    times3 = []
+    times4 = []
+    timesAll = []
+    copy = []
     for i in range(0, n, step):
+        timeIns = 0
+        timeSel = 0
+        timeBub = 0
+        timeOptSel = 0
         L = create_random_list(i, i)
-        time = 0
+        size_plot.append(i)
         for _ in range(m):
-            start = timeit.default_timer()
-            insertion_sort(L)
-            end = timeit.default_timer()
-            time += end - start
-            times.append(time)
-    return times
+            print("Experiement 1 Running")
+            copy1 = L.copy()
+            copy2 = L.copy()
+            copy3 = L.copy()
+            copy4 = L.copy()
 
-def experiement2(n, m, step):
-    times = []
-    for i in range(0, n, step):
-        L = create_random_list(i, i)
-        time = 0
-        for _ in range(m):
-            start = timeit.default_timer()
-            selection_sort(L)
-            end = timeit.default_timer()
-            time += end - start
-            times.append(time)
-    return times
-
-def experiement3(n, m, step):
-    times = []
-    for i in range(0, n, step):
-        L = create_random_list(i, i)
-        time = 0
-        for _ in range(m):
-            start = timeit.default_timer()
-            bubble_sort(L)
-            end = timeit.default_timer()
-            time += end - start
-            times.append(time)
-    return times
+            # Insertion Sort
+            start1 = timeit.default_timer()
+            insertion_sort(copy1)
+            end1 = timeit.default_timer()
+            timeIns += end1 - start1
 
 
-times = experiement1(1000, 10, 1000)
-plot.plot(times)
+            # Selection Sort
+            start2 = timeit.default_timer()
+            selection_sort(copy2)
+            end2 = timeit.default_timer()
+            timeSel += end2 - start2
+            
+
+            # Bubble Sort
+            start3 = timeit.default_timer()
+            bubble_sort(copy3)
+            end3 = timeit.default_timer()
+            timeBub += end3 - start3
+
+            # Optimized Insertion Sort
+            start4 = timeit.default_timer()
+            insertion_sort2(copy4)
+            end4 = timeit.default_timer()
+            timeOptSel += end4 - start4
+
+
+            # print(time)
+        times1.append(timeIns/m)
+        times2.append(timeSel/m)
+        times3.append(timeBub/m)
+        times4.append(timeOptSel/m)
+        timesAll.append(times1)
+        timesAll.append(times2)
+        timesAll.append(times3)
+        timesAll.append(times4)
+
+    
+        
+    
+    return timesAll
+
+
+step = 1
+size = 10
+number_of_lists = 1000
+times = experiement1(size, number_of_lists, step)
+
+plot.plot(size_plot, times[0], label = "Insertion Sort")
+
+plot.plot(size_plot, times[1], label = "Selection Sort")
+
+plot.plot(size_plot, times[2], label = "Bubble Sort")
+
+plot.plot(size_plot, times[3], label = "Optimized Insertion Sort")
+
+plot.ylabel("Time")
+plot.xlabel("List Size")
+plot.title("Runtime of \"bad\" sorting algorithms ")
+plot.legend()
 plot.show()
 
-times = experiement1(1000, 100, 1000)
-plot.plot(times)
-plot.show()
+
 
 
 

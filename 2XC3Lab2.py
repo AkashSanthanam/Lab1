@@ -72,6 +72,17 @@ def bubble_sort(L):
             if L[j] > L[j+1]:
                 swap(L, j, j+1)
 
+def bubble_sort2(L):
+  for i in range(len(L)):
+    swapped = False
+    for j in range(0, len(L) - i - 1):
+      if L[j] > L[j + 1]:
+        swap(L, j, j+1)
+        swapped = True
+
+    if not swapped:
+      break
+
 
 # ******************* Selection sort code *******************
 
@@ -80,6 +91,28 @@ def selection_sort(L):
     for i in range(len(L)):
         min_index = find_min_index(L, i)
         swap(L, i, min_index)
+
+def selection_sort2(L):
+    left = 0
+    right = len(L) - 1
+    while left < right:
+        min_index = left
+        max_index = right
+        for i in range(left, right + 1):
+            if L[i] < L[min_index]:
+                min_index = i
+            if L[i] > L[max_index]:
+                max_index = i
+
+        swap(L, left, min_index)
+
+        if max_index == left:
+            max_index = min_index
+        
+        swap(L, right, max_index)
+
+        left += 1
+        right -= 1
 
 
 def find_min_index(L, n):
@@ -135,7 +168,6 @@ def experiement1(n, m, step):
     times3 = []
     times4 = []
     timesAll = []
-    copy = []
     for i in range(0, n, step):
         timeIns = 0
         timeSel = 0
@@ -193,22 +225,117 @@ def experiement1(n, m, step):
     return timesAll
 
 
-step = 1
-size = 10
+# Selection vs Optimized Selection
+
+def experiement2(n, m, step):
+    times1 = []
+    times2 = []
+    timesAll = []
+    for i in range(0, n, step):
+        timeSel = 0
+        timeOptSel = 0
+        L = create_random_list(i, i)
+        size_plot.append(i)
+        for _ in range(m):
+            print("Experiement 2 Running")
+            copy1 = L.copy()
+            copy2 = L.copy()
+
+            # Selection Sort
+            start1 = timeit.default_timer()
+            selection_sort(copy1)
+            end1 = timeit.default_timer()
+            timeSel += end1 - start1
+
+
+            # Optimized Selection Sort
+            start2 = timeit.default_timer()
+            selection_sort2(copy2)
+            end2 = timeit.default_timer()
+            timeOptSel += end2 - start2
+            
+
+        
+
+
+            # print(time)
+        times1.append(timeSel/m)
+        times2.append(timeOptSel/m)
+        timesAll.append(times1)
+        timesAll.append(times2)
+      
+
+    
+        
+    
+    return timesAll
+
+# Bubble vs Optimized Bubble
+def experiement3(n, m, step):
+    times1 = []
+    times2 = []
+    timesAll = []
+    for i in range(0, n, step):
+        timeBub = 0
+        timeOptBub = 0
+        L = create_random_list(i, i)
+        size_plot.append(i)
+        for _ in range(m):
+            print("Experiement 3 Running")
+            copy1 = L.copy()
+            copy2 = L.copy()
+
+            # Bubble Sort
+            start1 = timeit.default_timer()
+            bubble_sort(copy1)
+            end1 = timeit.default_timer()
+            timeBub += end1 - start1
+
+
+            # Optimized Bubble Sort
+            start2 = timeit.default_timer()
+            bubble_sort2(copy2)
+            end2 = timeit.default_timer()
+            timeOptBub += end2 - start2
+            
+
+        
+
+
+            # print(time)
+        times1.append(timeBub/m)
+        times2.append(timeOptBub/m)
+        timesAll.append(times1)
+        timesAll.append(times2)
+      
+
+    
+        
+    
+    return timesAll
+
+step = 100
+size = 1000
 number_of_lists = 1000
-times = experiement1(size, number_of_lists, step)
+times = experiement3(size, number_of_lists, step)
 
-plot.plot(size_plot, times[0], label = "Insertion Sort")
+plot.plot(size_plot, times[0], label = "Bubble Sort")
 
-plot.plot(size_plot, times[1], label = "Selection Sort")
+plot.plot(size_plot, times[1], label = "Optimized Bubble Sort")
 
-plot.plot(size_plot, times[2], label = "Bubble Sort")
 
-plot.plot(size_plot, times[3], label = "Optimized Insertion Sort")
+
+# plot.plot(size_plot, times[0], label = "Insertion Sort")
+
+# plot.plot(size_plot, times[1], label = "Selection Sort")
+
+# plot.plot(size_plot, times[2], label = "Bubble Sort")
+
+# plot.plot(size_plot, times[3], label = "Optimized Insertion Sort")
 
 plot.ylabel("Time")
 plot.xlabel("List Size")
-plot.title("Runtime of \"bad\" sorting algorithms ")
+plot.title("Bubble Sort vs Optimized Bubble Sort")
 plot.legend()
 plot.show()
 

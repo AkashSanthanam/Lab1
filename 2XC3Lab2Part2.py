@@ -302,6 +302,37 @@ def experiement4(n, m, step):
 
 size_plot = []
 
+#experiment 5
+def experiement5(size, num_of_lists, max_num_swaps):
+    times1 = []
+    timesAll = []
+    swaps = 0
+    for i in range(0, max_num_swaps):
+        
+        timeBub = 0
+        timeOptBub = 0
+        L = create_near_sorted_list(size,size, swaps)
+        size_plot.append(swaps)
+        for _ in range(num_of_lists):
+            copy1 = L.copy()
+
+            # QuickSort
+            start1 = timeit.default_timer()
+            quicksort(copy1)
+            end1 = timeit.default_timer()
+            timeBub += end1 - start1
+
+
+            # print(time)
+        swaps += 1
+        times1.append(timeBub/num_of_lists)
+        timesAll.append(times1)
+
+
+
+
+
+    return timesAll
 #Experiment 6
 def experiment6(n, m, step):
     times1 = []
@@ -400,6 +431,52 @@ def experiment7(n, m, step):
         times2.append(timeBottomMerge/m)
         timesAll.append(times1)
         timesAll.append(times2)
+    return timesAll
+def experiement8(max_size, num_of_lists, step):
+    times1 = []
+    times2 = []
+    times3 = []
+    timesAll = []
+    for i in range(0, max_size, step):
+        timeIns = 0
+        timeQuick = 0
+        timeMerge = 0
+        L = create_random_list(i, i)
+        size_plot.append(i)
+        for _ in range(num_of_lists):
+            copy1 = L.copy()
+            copy2 = L.copy()
+            copy3 = L.copy()
+
+            # Insertion Sort
+            start1 = timeit.default_timer()
+            insertion_sort(copy1)
+            end1 = timeit.default_timer()
+            timeIns += end1 - start1
+
+
+            # Selection Sort
+            start2 = timeit.default_timer()
+            quicksort(copy2)
+            end2 = timeit.default_timer()
+            timeQuick += end2 - start2
+
+
+            # Bubble Sort
+            start3 = timeit.default_timer()
+            mergesort(copy3)
+            end3 = timeit.default_timer()
+            timeMerge += end3 - start3
+
+           
+        times1.append(timeIns/num_of_lists)
+        times2.append(timeQuick/num_of_lists)
+        times3.append(timeMerge/num_of_lists)
+
+        timesAll.append(times1)
+        timesAll.append(times2)
+        timesAll.append(times3)
+    
     return timesAll
 
 step = 250

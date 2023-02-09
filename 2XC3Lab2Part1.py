@@ -44,6 +44,7 @@ def insert(L, i):
         else:
             return
 
+        
 
 # This is the optimization/improvement we saw in lecture
 def insertion_sort2(L):
@@ -71,7 +72,8 @@ def bubble_sort(L):
         for j in range(len(L) - 1):
             if L[j] > L[j+1]:
                 swap(L, j, j+1)
-
+                
+# Optimized Bubble
 def bubble_sort2(L):
   for i in range(len(L)):
     swapped = False
@@ -92,6 +94,7 @@ def selection_sort(L):
         min_index = find_min_index(L, i)
         swap(L, i, min_index)
 
+# Optimized Selection
 def selection_sort2(L):
     left = 0
     right = len(L) - 1
@@ -162,6 +165,8 @@ for _ in range(n):
 # m is number of lists
 size_plot = []
 
+# Experiment 1
+
 def experiement1(n, m, step):
     times1 = []
     times2 = []
@@ -224,10 +229,11 @@ def experiement1(n, m, step):
     
     return timesAll
 
+# Experiment 2
 
 # Selection vs Optimized Selection
 
-def experiement2(n, m, step):
+def experiement2Selection(n, m, step):
     times1 = []
     times2 = []
     timesAll = []
@@ -271,7 +277,7 @@ def experiement2(n, m, step):
     return timesAll
 
 # Bubble vs Optimized Bubble
-def experiement3(n, m, step):
+def experiement2Bubble(n, m, step):
     times1 = []
     times2 = []
     timesAll = []
@@ -313,6 +319,85 @@ def experiement3(n, m, step):
         
     
     return timesAll
+
+
+# Experiment 3
+
+swapSize = []
+def experiment3(maxNumSwaps):
+    arrLength = 5000
+    numRuns = 50
+    largestNum = 5000
+
+    # arrays neeeded for plotting 
+    times1 = []
+    times2 = []
+    times3 = []
+    timesAll = []
+
+    for numSwap in range(0, maxNumSwaps, 500):
+        swapSize.append(numSwap)
+        timeIns = 0
+        timeSel = 0
+        timeBub = 0
+        L = create_near_sorted_list(arrLength,largestNum, numSwap)
+        for _ in range(numRuns):
+            print("Experiment 4 Running")
+            copy1 = L.copy()
+            copy2 = L.copy()
+            copy3 = L.copy()
+
+
+            start1 = timeit.default_timer()
+            insertion_sort2(copy1)
+            end1 = timeit.default_timer()
+            timeSel += (end1 - start1)
+
+    
+            start2 = timeit.default_timer()
+            selection_sort2(copy2)
+            end2 = timeit.default_timer()
+            timeIns += (end2 - start2)
+
+
+            start3 = timeit.default_timer()
+            bubble_sort2(copy3)
+            end3 = timeit.default_timer()
+            timeBub += (end3 - start3)
+
+
+
+        times1.append(timeSel/numRuns)
+        times2.append(timeIns/numRuns)
+        times3.append(timeBub/numRuns)
+        timesAll.append(times1)
+        timesAll.append(times2)
+        timesAll.append(times3)
+
+    return timesAll   
+
+
+
+step = 100
+nbSwap = 500
+# size = 1000
+number_of_lists = 100
+maxNumSwaps = 3000
+times = experiment4(maxNumSwaps)
+
+plot.plot(swapSize, times[0], label = "Optimized Insertion Sort")
+
+plot.plot(swapSize, times[1], label = "Optimized Selection Sort")
+
+plot.plot(swapSize, times[2], label = "Optimized Bubble Sort")
+
+
+
+plot.ylabel("Time")
+plot.xlabel("Number of Swaps")
+plot.title("Swaps vs Time of Optimized Sorting Algorithms")
+plot.legend()
+plot.show()
 
 step = 100
 size = 1000

@@ -246,7 +246,7 @@ def find_min_index(L, n):
 # m is number of lists
 size_plot = []
 
-def experiement1(n, m, step):
+def experiement4(n, m, step):
     times1 = []
     times2 = []
     times3 = []
@@ -301,7 +301,7 @@ def experiement1(n, m, step):
 
 size_plot = []
 
-def experiment3(n, m, step):
+def experiment6(n, m, step):
     times1 = []
     times2 = []
     times3 = []
@@ -365,7 +365,7 @@ def experiment3(n, m, step):
     return timesAll
 
 
-def experiment4(n, m, step):
+def experiment7(n, m, step):
     times1 = []
     times2 = []
     timesAll = []

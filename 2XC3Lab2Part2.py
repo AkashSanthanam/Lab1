@@ -34,8 +34,7 @@ def quicksort_copy(L):
             right.append(num)
     return quicksort_copy(left) + [pivot] + quicksort_copy(right)
 
-
-
+# Quick Sort with two pivots
 def quicksort2(list):
     if len(list) <= 1:
         return list
@@ -52,7 +51,7 @@ def quicksort2(list):
             right.append(element)
     return quicksort2(left) + [pivot1] + quicksort2(middle) + [pivot2] + quicksort2(right)
 
-
+# Quick Sort with three pivots
 def quicksort3(list):
     if len(list) <= 1:
         return list
@@ -72,6 +71,7 @@ def quicksort3(list):
    
     return quicksort3(left) + [pivot1] + quicksort3(middle1) + [pivot2] + quicksort3(middle2) + [pivot3] + quicksort3(right)
 
+# Quick Sort with four pivots
 def quicksort4(list):
     if len(list) <= 1:
         return list
@@ -246,6 +246,7 @@ def find_min_index(L, n):
 # m is number of lists
 size_plot = []
 
+#Experiment 4
 def experiement4(n, m, step):
     times1 = []
     times2 = []
@@ -301,6 +302,7 @@ def experiement4(n, m, step):
 
 size_plot = []
 
+#Experiment 6
 def experiment6(n, m, step):
     times1 = []
     times2 = []
@@ -365,6 +367,7 @@ def experiment6(n, m, step):
     return timesAll
 
 
+#Experiment 7
 def experiment7(n, m, step):
     times1 = []
     times2 = []
